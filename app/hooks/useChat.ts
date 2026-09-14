@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Message } from "../types/chat";
+import { sendChatMessage } from "../services/chatApi";
 
 type ChatState =
   | {
@@ -17,20 +18,6 @@ type ChatState =
       status: "error";
       message: string;
     };
-
-const fakeAIResponse = async (
-  message: string
-): Promise<string> => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1500);
-  });
-
-  if (message.toLowerCase().includes("error")) {
-    throw new Error("AI request failed");
-  }
-
-  return `You said: ${message}`;
-};
 
 export default function useChat() {
   const [messages, setMessages] = useState<Message[]>([
@@ -68,14 +55,7 @@ export default function useChat() {
     ]);
 
     try {
-      const response = await fakeAIResponse(content);
-
-      const aiMessage: Message = {
-        id: crypto.randomUUID(),
-        role: "assistant",
-        content: response,
-        createdAt: new Date(),
-      };
+      const aiMessage = await sendChatMessage(content);
 
       setMessages((currentMessages) => [
         ...currentMessages,
