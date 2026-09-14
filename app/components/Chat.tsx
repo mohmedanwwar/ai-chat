@@ -22,7 +22,7 @@ export default function Chat() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col bg-zinc-950 text-white">
+    <main className="flex h-screen flex-col overflow-hidden bg-zinc-950 text-white">
       <header className="border-b border-zinc-800 p-4">
         <h1 className="text-lg font-semibold">
           AI Assistant
