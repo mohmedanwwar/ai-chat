@@ -14,11 +14,6 @@ export default function MessageList({
 }: MessageListProps) {
   const containerRef = useRef<HTMLElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  // Tracks whether the user is stuck to the bottom, based only on their own
-  // scroll actions. Recomputing this from live scrollHeight on every new
-  // message would race with the scroll-into-view animation: a burst of fast
-  // messages grows the content before the animation catches up, making a
-  // still-anchored user look "scrolled away" and stranding the button on.
   const isStuckToBottomRef = useRef(true);
   const [showScrollButton, setShowScrollButton] = useState(false);
 
